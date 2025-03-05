@@ -109,8 +109,7 @@ public class LL {
     public static Node addTail(Node head) {
         Node newNode = new Node(5);
         if(head == null) {
-            head = newNode;
-            return head;
+            return newNode;
         }
         Node temp = head;
         while(temp.next != null) {
@@ -123,8 +122,7 @@ public class LL {
     public static Node addNode(Node head, int k) {
         Node newNode = new Node(9);
         if(head == null) {
-            head = newNode;
-            return head;
+            return newNode;
         }
         if(k==1) {
             newNode.next = head;
@@ -142,6 +140,26 @@ public class LL {
             prev = temp;
             temp = temp.next;
             i++;
+        }
+        return head;
+    }
+    public static Node insertBeforeX(Node head, int x, int ele) {
+        Node newNode = new Node(ele);
+        if(head == null) return null;
+        if(head.data == x) {
+            newNode.next = head;
+            head = newNode;
+            return head;
+        }
+        Node temp = head;
+        Node prev = null;
+        while(temp != null) {
+            if(temp.data == x) {
+                prev.next = newNode;
+                newNode.next = temp;
+            }
+            prev = temp;
+            temp = temp.next;
         }
         return head;
     }
@@ -168,7 +186,10 @@ public class LL {
        //head = deleteEle(head, 2);
        //printLL(head);
 
-       head = addNode(head, 3);
-       printLL(head);
+       //head = addNode(head, 3);
+       //printLL(head);
+
+       //head = insertBeforeX(head, 3, 10);
+       //printLL(head);
     }
 }
