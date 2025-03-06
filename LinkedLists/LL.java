@@ -4,9 +4,13 @@ public class LL {
     public static class Node {
         int data;
         Node next;
-        public Node(int data) { // can pass Node next as well, but if we not pass it will automatically take null
+        public Node(int data) { 
             this.data = data;
             this.next = null;
+        }
+        public Node(int data, Node next) {
+            this.data = data;
+            this.next = next;
         }
     }
     public static Node convertArr2LL(int arr[]) {
