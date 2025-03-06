@@ -200,6 +200,18 @@ public class DLL {
         temp.next = newNode;
         return head;
     }
+    public static Node reverseDLL(Node head) { //TC-O(N), SC-O(1)
+        if(head == null || head.next == null) return head; 
+        Node prev = null;
+        Node curr = head;
+        while(curr != null) {
+            prev = curr.back;
+            curr.back = curr.next;
+            curr.next = prev;
+            curr = curr.back;
+        }
+        return prev.back;
+    }
     public static void main(String[] args) {
         int arr[] = {1,3,2,4};
         Node head = convertArr2DLL(arr);
@@ -234,7 +246,10 @@ public class DLL {
         //head = insertBeforeKthNode(head,3, 0);
         //printDLL(head);
 
-        insertBeforeNode(head.next.next, 0);
+        //insertBeforeNode(head.next.next, 0);
+        //printDLL(head);
+
+        head = reverseDLL(head);
         printDLL(head);
     }
 }

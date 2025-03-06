@@ -167,6 +167,40 @@ public class LL {
         }
         return head;
     }
+    public static boolean detectCycle(Node head) { //Floyd CFA
+        Node slow = head;
+        Node fast = head;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow==fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static void removeCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if(cycle == false) return;
+        Node prev = null;
+        slow = head;
+        while(slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+        prev.next = null; //lastnode
+    }
     public static void main(String[] args) {
        int arr[] = {1,2,3,4};
        Node head = convertArr2LL(arr);
@@ -195,5 +229,7 @@ public class LL {
 
        //head = insertBeforeX(head, 3, 10);
        //printLL(head);
+
+       System.out.println(detectCycle(head));
     }
 }
