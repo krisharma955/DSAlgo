@@ -41,7 +41,7 @@ public class LinkedList {
         tail = newNode;
     }
 
-    public void printLL() {
+    public static void printLL() {
         if(head == null) {
             System.out.println("LL is empty");
             return;
@@ -230,6 +230,51 @@ public class LinkedList {
         return true;
     } //TC-> O(N), SC->O(1)
 
+    public static Node mid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    public static Node mergeSort(Node head) { //O(nlogn)
+        if(head == null || head.next == null) return head;
+        Node mid = mid(head);
+        Node rightHead = mid.next;
+        mid.next = null;
+        Node newLeft = mergeSort(head);
+        Node newRight = mergeSort(rightHead);
+        return merge(newLeft, newRight);
+    }
+    public static Node merge(Node leftHead, Node rightHead) {
+        Node mergedLL = new Node(-1);
+        Node temp = mergedLL;
+        while(leftHead != null && rightHead != null) {
+            if(leftHead.data <= rightHead.data) {
+                temp.next = leftHead;
+                leftHead = leftHead.next;
+            }
+            else {
+                temp.next = rightHead;
+                rightHead = rightHead.next;
+            }
+            temp = temp.next;
+        }
+        while(leftHead!=null) {
+            temp.next = leftHead;
+            leftHead = leftHead.next;
+            temp = temp.next;
+        }
+        while(rightHead!=null) {
+            temp.next = rightHead;
+            rightHead = rightHead.next;
+            temp = temp.next;
+        }
+        Node finalHead = mergedLL.next;
+        return finalHead;
+    }
     public static void main(String args[]) {
         LinkedList ll = new LinkedList();
         // ll.addFirst(2);
@@ -262,13 +307,23 @@ public class LinkedList {
         // ll.deleteNthfromEnd(3);
         // ll.printLL();
 
-        ll.addLast(1);
-        ll.addLast(2);
-        ll.addLast(1);
-        ll.addLast(1);
-        ll.addLast(2);
-        ll.addLast(1);
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(1);
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(1);
+        // ll.printLL();
+        // System.out.println(ll.isPalindrome());
+
+        ll.addFirst(1);
+        ll.addFirst(3);
+        ll.addFirst(6);
+        ll.addFirst(0);
+        ll.addFirst(-1);
+        ll.addFirst(8);
         ll.printLL();
-        System.out.println(ll.isPalindrome());
+        ll.head = ll.mergeSort(ll.head);
+        ll.printLL();
     } 
 }
