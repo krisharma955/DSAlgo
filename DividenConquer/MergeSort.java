@@ -12,7 +12,6 @@ public class MergeSort {
         merge(arr, si, mid, ei);
     }
 
-    //merge method to merge the sorted parts
     public static void merge(int arr[], int si, int mid, int ei) {
         int temp[] = new int[ei-si+1]; //size of temp array IMP
         int i = si; //iterator for left part
@@ -47,6 +46,39 @@ public class MergeSort {
         }
     }
 
+    public static void mergeeSort(int arr[], int low, int high) {
+        if(low>=high) return;
+        int mid = low + (high-low)/2;
+        mergeeSort(arr, low, mid);
+        mergeeSort(arr, mid+1, high);
+        mergee(arr, low, mid, high);
+    }
+    public static void mergee(int arr[], int low, int mid, int high) {
+        int temp[] = new int[high-low+1];
+        int left = low;
+        int right = mid+1;
+        int i = 0;
+        while(left <= mid && right <= high) {
+            if(arr[left]<=arr[right]) {
+                temp[i] = arr[left];
+                left++;
+            }
+            else {
+                temp[i] = arr[right];
+                right++;
+            }
+            i++;
+        }
+        while(left<=mid) {
+            temp[i++] = arr[left++];        
+        }
+        while(right<=high) {
+            temp[i++] = arr[right++];
+        }
+        for(int j = 0; j<temp.length; j++) {
+            arr[j+low] = temp[j];
+        }
+    }
     public static void printArr(int arr[]) {
         for(int i = 0; i<arr.length; i++) {
             System.out.print(arr[i] +" ");
@@ -55,7 +87,10 @@ public class MergeSort {
     }
     public static void main(String[] args) {
         int arr[] = {3,5,2,-1,7,8};
-        mergeSort(arr, 0, arr.length-1);
+        //mergeSort(arr, 0, arr.length-1);
+        //printArr(arr);
+
+        mergeeSort(arr, 0, arr.length-1);
         printArr(arr);
     }
 }
