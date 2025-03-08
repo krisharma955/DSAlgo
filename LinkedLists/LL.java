@@ -201,6 +201,16 @@ public class LL {
         }
         prev.next = null; //lastnode
     }
+    public static Node midNode(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    
     public static void main(String[] args) {
        int arr[] = {1,2,3,4};
        Node head = convertArr2LL(arr);
