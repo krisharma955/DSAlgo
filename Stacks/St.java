@@ -1,7 +1,7 @@
 package Stacks;
 
 public class St {
-    public static class StImplementation {
+    public static class StImplementation { //using Arrays
         int top = -1;
         int st[] = new int[10];
 
@@ -42,19 +42,84 @@ public class St {
             System.out.println();
         }
     }
+    public static class StLL {
+        public class Node {
+            int data;
+            Node next;
+            Node(int data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        Node top;
+        int size;
+
+        // void stack() {
+        //     this.top = null;
+        //     this.size = 0;
+        // }
+
+        public void pushStLL(int x) {
+            Node temp = new Node(x);
+            temp.next = top;
+            top = temp;
+            System.out.println(x+ " pushed in the stack");
+            size++;
+        }
+
+        public int pop() {
+            if(top == null) return -1;
+            int topData = top.data;
+            Node temp = top;
+            top = top.next;
+            temp.next = null;
+            size--;
+            System.out.println(topData+ " popped out of Stack");
+            return topData;
+        }
+
+        public int Top() {
+            if(top == null) return -1;
+            return top.data;
+        }
+
+        public int size() {
+            return size;
+        }
+
+        public boolean isEmpty() {
+            return top==null;
+        }
+
+        public void printStackLL() {
+            Node temp = top;
+            while(temp != null) {
+                System.out.print(temp.data +" ");
+                temp = temp.next;
+            }
+            System.out.println();
+        }
+    }
+    
     public static void main(String[] args) {
-        StImplementation s = new StImplementation();
+        // StImplementation s = new StImplementation();
+        // s.push(1);
+        // s.push(2);
+        // s.push(3);
+        // System.out.println(s.Top());
+        // s.pop();
+        // System.out.println(s.size());
+        // s.printSt();
 
-        s.push(1);
-        s.push(2);
-        s.push(3);
-
-        System.out.println(s.Top());
-
-        s.pop();
-
-        System.out.println(s.size());
-
-        s.printSt();
+        StLL st = new StLL();
+        st.pushStLL(1);
+        st.pushStLL(2);
+        st.pushStLL(3);
+        st.printStackLL();
+        System.out.println(st.Top());
+        System.out.println(st.pop());
+        st.printStackLL();
+        System.out.println(st.isEmpty());
+        System.out.println(st.size());
     }
 }
