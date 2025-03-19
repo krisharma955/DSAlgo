@@ -1,4 +1,5 @@
 package Stacks;
+import java.util.*;
 
 public class St {
     public static class StImplementation { //using Arrays
@@ -100,7 +101,31 @@ public class St {
             System.out.println();
         }
     }
-    
+    public static class StackQ {
+        Queue<Integer> q = new LinkedList<>();
+        
+        public int top() {
+            return q.peek();
+        }
+
+        public void push(int x) { //O(N)
+            q.add(x);
+            for(int i = 1; i<q.size(); i++) {
+                q.add(top());
+                q.remove();
+            }
+            System.out.println(x+ " pushed");
+        }
+
+        public int pop() { //O(1)
+            return q.remove();
+        }
+
+        public int size() { //O(1)
+            return q.size();
+        }
+    }
+
     public static void main(String[] args) {
         // StImplementation s = new StImplementation();
         // s.push(1);
@@ -111,15 +136,27 @@ public class St {
         // System.out.println(s.size());
         // s.printSt();
 
-        StLL st = new StLL();
-        st.pushStLL(1);
-        st.pushStLL(2);
-        st.pushStLL(3);
-        st.printStackLL();
-        System.out.println(st.Top());
-        System.out.println(st.pop());
-        st.printStackLL();
-        System.out.println(st.isEmpty());
-        System.out.println(st.size());
+        // StLL st = new StLL();
+        // st.pushStLL(1);
+        // st.pushStLL(2);
+        // st.pushStLL(3);
+        // st.printStackLL();
+        // System.out.println(st.Top());
+        // System.out.println(st.pop());
+        // st.printStackLL();
+        // System.out.println(st.isEmpty());
+        // System.out.println(st.size());
+
+        StackQ s = new StackQ();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        s.push(5);
+        System.out.println("Top: " +s.top());
+        System.out.println("Size: " +s.size());
+        s.pop();
+        s.pop();
+        System.out.println("Size: " +s.size());
     }
 }
