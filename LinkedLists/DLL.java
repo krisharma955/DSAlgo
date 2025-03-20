@@ -113,17 +113,20 @@ public class DLL {
         return head;
     }
     public static void deleteNodeII(Node node) { //head node will not be given
-        Node prev = node.back;
-        Node forw = node.next;
-        if(forw == null) {
-            prev.next = null;
-            node.back = null;
-            return;
-        }
-        prev.next = forw;
-        forw.back = prev;
-        node.next = null;
-        node.back = null;
+        // Node prev = node.back;
+        // Node forw = node.next;
+        // if(forw == null) {
+        //     prev.next = null;
+        //     node.back = null;
+        //     return;
+        // }
+        // prev.next = forw;
+        // forw.back = prev;
+        // node.next = null;
+        // node.back = null;
+
+        node.back.next = node.next;
+        node.next.back = node.back;
     } //not deleting head from this fxn
     public static Node insertBeforeHead(Node head, int data) {
         Node newNode = new Node(data, head, null);
@@ -231,8 +234,8 @@ public class DLL {
         //head = deleteNode(head, 1);
         //printDLL(head);
 
-        //deleteNodeII(head.next);
-        //printDLL(head);
+        deleteNodeII(head.next);
+        printDLL(head);
 
         //head = insertBeforeHead(head, 0);
         //printDLL(head);
@@ -249,7 +252,7 @@ public class DLL {
         //insertBeforeNode(head.next.next, 0);
         //printDLL(head);
 
-        head = reverseDLL(head);
-        printDLL(head);
+        // head = reverseDLL(head);
+        // printDLL(head);
     }
 }
