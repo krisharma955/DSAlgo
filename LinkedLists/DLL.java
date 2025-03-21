@@ -130,6 +130,7 @@ public class DLL {
     } //not deleting head from this fxn
     public static Node insertBeforeHead(Node head, int data) {
         Node newNode = new Node(data, head, null);
+        if(head == null) return newNode;
         head.back = newNode;
         return newNode;
     }
