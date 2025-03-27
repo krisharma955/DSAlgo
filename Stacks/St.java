@@ -26,7 +26,7 @@ public class St {
 
         public void pop() { //O(1)
             if(top == -1) {
-                System.out.println("Empty Stack");
+                System.out.println("UnderFlow");
             }
             System.out.println(st[top]+ " popped put of stack");
             top = top-1;
