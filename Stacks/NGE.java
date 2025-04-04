@@ -50,7 +50,40 @@ public class NGE {
         }
         return list;
     }
-    
+    public static int[] NGEIIbrute(int nums[]) {
+        int[] list = new int[nums.length];
+        int n = nums.length;
+        for(int i = 0; i<n; i++) {
+            boolean found = false;
+            for(int j = i+1; j<=i+n-1; j++) {
+                int idx = j%n;
+                if(nums[idx]>nums[i]) {
+                    list[i] = nums[idx];
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) {
+                list[i] = -1;
+            }
+        }
+        return list;
+    }
+    public static int[] NGEIIopt(int nums[]) {
+        Stack<Integer> st = new Stack<>();
+        int nge[] = new int[nums.length];
+        int n = nums.length;
+        for(int i = 2*n-1; i>=0; i--) {
+            while(!st.isEmpty() && st.peek()<=nums[i%n]) {
+                st.pop();
+            }
+            if(i<n) {
+                nge[i] = st.isEmpty()?-1:st.peek();
+            }
+            st.push(nums[i%n]);
+        }
+        return nge;
+    }
     public static void main(String[] args) {
     }
 }
