@@ -86,6 +86,6 @@ public class Basics {
         //tree.preOrder(root);
         //tree.inOrder(root);
         //tree.postOrder(root);
-        //tree.levelOrder(root);
+        tree.levelOrder(root);
     }
 }
