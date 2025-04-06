@@ -76,6 +76,27 @@ public class Basics {
             }
         }
 
+        public int height(Node root) { //O(N)
+            if(root == null) return 0;
+            int lh = height(root.left);
+            int rh = height(root.right);
+            return Math.max(lh,rh)+1;
+        }
+
+        public int count(Node root) { //O(N)
+            if(root == null) return 0;
+            int lcount = count(root.left);
+            int rcount = count(root.right);
+            return lcount+rcount+1;
+        }
+
+        public int sum(Node root) { //O(N)
+            if(root == null) return 0;
+            int lsum = sum(root.left);
+            int rsum = sum(root.right);
+            return lsum+rsum+root.data;
+        }
+
         
     }
     public static void main(String[] args) {
@@ -86,6 +107,10 @@ public class Basics {
         //tree.preOrder(root);
         //tree.inOrder(root);
         //tree.postOrder(root);
-        tree.levelOrder(root);
+        //tree.levelOrder(root);
+
+        //System.out.println(tree.height(root));
+        //System.out.println(tree.count(root));
+        System.out.println(tree.sum(root));
     }
 }
