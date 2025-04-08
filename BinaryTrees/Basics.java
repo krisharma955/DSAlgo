@@ -97,6 +97,35 @@ public class Basics {
             return lsum+rsum+root.data;
         }
 
+        public int diameterI(Node root) { //O(N^2)
+            if(root == null) return 0;
+            int ldiam = diameterI(root.left);
+            int lh = height(root.left);
+            int rdiam = diameterI(root.right);
+            int rh = height(root.right);
+            int selfd = lh + rh + 1;
+            return Math.max(selfd, Math.max(rdiam, ldiam));
+        } 
+
+        static class info {
+            int diam;
+            int ht;
+            public info(int diam, int ht) {
+                this.diam = diam;
+                this.ht = ht;
+            }
+        }
+        public info diameterII(Node root) { //O(N)
+            if(root == null) return new info(0,0);
+            info linfo = diameterII(root.left);
+            info rinfo = diameterII(root.right);
+
+            int diam = Math.max(Math.max(linfo.diam, rinfo.diam), linfo.ht+rinfo.ht+1);
+            int ht = Math.max(linfo.ht, rinfo.ht) + 1;
+
+            return new info(diam, ht);
+        }
+
         
     }
     public static void main(String[] args) {
@@ -111,6 +140,9 @@ public class Basics {
 
         //System.out.println(tree.height(root));
         //System.out.println(tree.count(root));
-        System.out.println(tree.sum(root));
+        //System.out.println(tree.sum(root));
+
+        //System.out.println(tree.diameterI(root));
+        System.out.println(tree.diameterII(root).diam);
     }
 }
