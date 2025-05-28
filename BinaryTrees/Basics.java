@@ -18,12 +18,12 @@ public class Basics {
     static class BinaryTree {
         static int idx = -1;
         public Node buildTree(int nodes[]) {
-            idx++;
+            idx++; //on first time it becomes 0
             if(nodes[idx] == -1) return null;
             Node newNode = new Node(nodes[idx]);
             newNode.left = buildTree(nodes);
             newNode.right = buildTree(nodes);
-            return newNode;
+            return newNode; //root node
         } //TC - O(N)
 
         public void preOrder(Node root) { //O(N)
@@ -41,14 +41,14 @@ public class Basics {
             inOrder(root.left);
             System.out.print(root.data +" ");
             inOrder(root.right);
-         }
+        }
 
         public void postOrder(Node root) { //O(N)
             if(root == null) return;
             postOrder(root.left);
             postOrder(root.right);
             System.out.print(root.data+ " ");
-         }
+        }
 
         public void levelOrder(Node root) { //O(N)
             if(root == null) {
@@ -60,12 +60,12 @@ public class Basics {
             while(!q.isEmpty()) {
                 Node currNode = q.remove();
                 if(currNode == null) {
-                    System.out.println();
+                    System.out.println(); //nextLine
                     if(q.isEmpty()) {
                         break;
                     }
                     else {
-                        q.add(null);
+                        q.add(null); //adding null to queue again for nextLine
                     }
                 }
                 else {
@@ -110,7 +110,7 @@ public class Basics {
         static class info {
             int diam;
             int ht;
-            public info(int diam, int ht) {
+            public info(int diam, int ht) { //constructor
                 this.diam = diam;
                 this.ht = ht;
             }
@@ -125,13 +125,27 @@ public class Basics {
 
             return new info(diam, ht);
         }
-
         
+        public boolean isIdentical(Node node, Node subRoot) {
+            if(node == null && subRoot == null) return true;
+            else if(node == null || subRoot == null || node.data != subRoot.data) return false;
+            if(!isIdentical(node.left, subRoot.left)) return false;
+            if(!isIdentical(node.right, subRoot.right)) return false;
+            return true;
+        }
+        public boolean isSubtree(Node root, Node subRoot) {
+            if(root == null) return false;
+            if(root.data == subRoot.data) {
+                if(isIdentical(root, subRoot)) return true;
+            }
+            return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot); //checking in left and right subtree
+        }
     }
     public static void main(String[] args) {
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
         BinaryTree tree = new BinaryTree();
         Node root = tree.buildTree(nodes);
+        //System.out.println(root.data);
 
         //tree.preOrder(root);
         //tree.inOrder(root);
@@ -143,6 +157,12 @@ public class Basics {
         //System.out.println(tree.sum(root));
 
         //System.out.println(tree.diameterI(root));
-        System.out.println(tree.diameterII(root).diam);
+        //System.out.println(tree.diameterII(root).diam);
+        //System.out.println(tree.diameterII(root).ht);
+
+        Node subRoot = new Node(2);
+        subRoot.left = new Node(4);
+        subRoot.right = new Node(5);
+        System.out.println(tree.isSubtree(root, subRoot));
     }
 }
