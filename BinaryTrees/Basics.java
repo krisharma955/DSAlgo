@@ -1,5 +1,6 @@
 package BinaryTrees;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -140,6 +141,53 @@ public class Basics {
             }
             return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot); //checking in left and right subtree
         }
+
+        static class Info {
+            Node node;
+            int hd;
+            public Info(Node node, int hd) {
+                this.node = node;
+                this.hd = hd;
+            }
+        }
+        public static void topView(Node root) {
+            Queue<Info> q = new LinkedList<>();
+            HashMap<Integer, Node> map = new HashMap<>();
+
+            int min = 0, max = 0;
+            q.add(new Info(root, 0));
+            q.add(null);
+
+            while(!q.isEmpty()) {
+                Info curr = q.remove();
+                if(curr == null) {
+                    if(q.isEmpty()) {
+                        break;
+                    }
+                    else {
+                        q.add(null);
+                    }
+                }
+                else {
+                    if(!map.containsKey(curr.hd)) { //first time hd is occuring
+                    map.put(curr.hd, curr.node);
+                    }
+                    if(curr.node.left != null) { //left child
+                        q.add(new Info(curr.node.left, curr.hd-1));
+                        min = Math.min(min, curr.hd-1);
+                    }
+                    if(curr.node.right != null) { //right child
+                        q.add(new Info(curr.node.right, curr.hd+1));
+                        max = Math.max(max, curr.hd+1);
+                    }
+                }
+            }
+            
+            for(int i = min; i<=max; i++) {
+                System.out.print(map.get(i).data+ " ");
+            }
+            System.out.println();
+        }
     }
     public static void main(String[] args) {
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -160,9 +208,11 @@ public class Basics {
         //System.out.println(tree.diameterII(root).diam);
         //System.out.println(tree.diameterII(root).ht);
 
-        Node subRoot = new Node(2);
-        subRoot.left = new Node(4);
-        subRoot.right = new Node(5);
-        System.out.println(tree.isSubtree(root, subRoot));
+        //Node subRoot = new Node(2);
+        //subRoot.left = new Node(4);
+        //subRoot.right = new Node(5);
+        //System.out.println(tree.isSubtree(root, subRoot));
+
+        BinaryTree.topView(root);
     }
 }
